@@ -1,21 +1,16 @@
-import { Routes, Route } from "react-router-dom";
-import "./App.css";
-import Loginpage from "./Components/loginpage/loginpage";
-import Listpage from "./Components/listpage/listpage";
-import Notfound from "./Components/notfound/notfound";
-import Navbar from "./Components/navbar/navbar";
+// project import
+import Routes from 'routes';
+import ThemeCustomization from 'themes';
+import ScrollTop from 'components/ScrollTop';
 
-function App() {
-  return (
-    <div>
-      <Navbar></Navbar>
-      <Routes>
-        <Route path="/" element={<Loginpage />} />
-        <Route path="/listall" element={<Listpage />} />
-        <Route path="/notfound" element={<Notfound />} />
-      </Routes>
-    </div>
-  );
-}
+// ==============================|| APP - THEME, ROUTER, LOCAL  ||============================== //
+
+const App = () => (
+  <ThemeCustomization>
+    <ScrollTop>
+      <Routes />
+    </ScrollTop>
+  </ThemeCustomization>
+);
 
 export default App;
