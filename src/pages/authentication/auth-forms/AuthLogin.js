@@ -1,9 +1,3 @@
-import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
-// import { Link as RouterLink, useNavigate } from 'react-router-dom';
-
 // material-ui
 import {
   Button,
@@ -21,6 +15,11 @@ import {
   Typography
 } from '@mui/material';
 
+import { React, useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
 // third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -31,13 +30,18 @@ import AnimateButton from 'components/@extended/AnimateButton';
 
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { userLogIn, userLogOut } from 'store/reducers/authentication';
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
 const AuthLogin = () => {
-  const [checked, setChecked] = React.useState(false);
-  const [loginLoader, setLoader] = React.useState(false);
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [checked, setChecked] = useState(false);
+  const [loginLoader, setLoader] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.userauth);
+
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -49,7 +53,11 @@ const AuthLogin = () => {
       setSubmitting(false);
       console.log(values);
       setLoader(true);
+      dispatch(userLogIn(true));
+      console.log('value: ' + user.userAuthenticationStatus);
       await new Promise((resolve) => setTimeout(resolve, 3000));
+      dispatch(userLogOut(false));
+      console.log('value: ' + user.userAuthenticationStatus);
       setLoader(false);
       // navigate(`/dashboard/default`);
     } catch (err) {
