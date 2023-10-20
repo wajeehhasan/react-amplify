@@ -59,7 +59,7 @@ const AuthLogin = () => {
       dispatch(userLogOut(false));
       console.log('value: ' + user.userAuthenticationStatus);
       setLoader(false);
-      // navigate(`/dashboard/default`);
+      // navigate(`/dashboard/default`); //sdsd
     } catch (err) {
       setStatus({ success: false });
       setErrors({ submit: err.message });
