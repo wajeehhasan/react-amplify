@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 import { Grid, Stack, Typography } from '@mui/material';
 
 // project import
-import AuthLogin from './auth-forms/AuthLogin';
+// import AuthLogin from './auth-forms/AuthLogin';
 import AuthWrapper from './AuthWrapper';
 import React from 'react';
+import AuthLoginAwsCognito from './auth-forms/AuthLoginAwsCognito';
 
 // ================================|| LOGIN ||================================ //
 
@@ -24,7 +25,8 @@ const Login = () => {
           </Stack>
         </Grid>
         <Grid item xs={12}>
-          <AuthLogin />
+          {/* <AuthLogin /> */}
+          <AuthLoginAwsCognito></AuthLoginAwsCognito>
         </Grid>
       </Grid>
     </AuthWrapper>

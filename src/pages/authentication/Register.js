@@ -6,6 +6,7 @@ import { Grid, Stack, Typography } from '@mui/material';
 // project import
 import FirebaseRegister from './auth-forms/AuthRegister';
 import AuthWrapper from './AuthWrapper';
+import AuthRegisterAwsCognito from './auth-forms/AuthRegisterAwsCognito';
 
 // ================================|| REGISTER ||================================ //
 
@@ -22,6 +23,7 @@ const Register = () => (
       </Grid>
       <Grid item xs={12}>
         <FirebaseRegister />
+        <AuthRegisterAwsCognito></AuthRegisterAwsCognito>
       </Grid>
     </Grid>
   </AuthWrapper>
