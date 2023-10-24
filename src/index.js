@@ -11,6 +11,8 @@ import { Provider as ReduxProvider } from 'react-redux';
 // apex-chart
 import 'assets/third-party/apex-chart.css';
 
+import { Authenticator } from '@aws-amplify/ui-react';
+
 // project import
 import App from './App';
 import { store } from 'store';
@@ -36,7 +38,9 @@ root.render(
   <StrictMode>
     <ReduxProvider store={store}>
       <BrowserRouter>
-        <App />
+        <Authenticator.Provider>
+          <App />
+        </Authenticator.Provider>
       </BrowserRouter>
     </ReduxProvider>
   </StrictMode>
