@@ -7,7 +7,7 @@ import MinimalLayout from 'layout/MinimalLayout';
 // render - login
 const AuthLogin = Loadable(lazy(() => import('pages/authentication/Login')));
 const AuthRegister = Loadable(lazy(() => import('pages/authentication/Register')));
-const Confirmcode = Loadable(lazy(() => import('pages/authentication/Confirmcode')));
+// const Confirmcode = Loadable(lazy(() => import('pages/authentication/Confirmcode')));
 
 // ==============================|| AUTH ROUTING ||============================== //
 
@@ -23,10 +23,10 @@ const LoginRoutes = {
       path: 'register',
       element: <AuthRegister />
     },
-    {
-      path: 'confirmcode',
-      element: <Confirmcode />
-    }
+    // {
+    //   path: 'confirmcode',
+    //   element: <Confirmcode />
+    // }
   ]
 };
 

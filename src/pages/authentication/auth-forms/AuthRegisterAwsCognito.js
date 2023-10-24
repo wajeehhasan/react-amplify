@@ -1,5 +1,13 @@
 import { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+//confirm dialog imports
+
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 // material-ui
 import {
@@ -41,6 +49,7 @@ import { setUsername } from 'store/reducers/authentication';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
+
 //icons
 
 // icons
@@ -48,8 +57,61 @@ import { useSelector, useDispatch } from 'react-redux';
 // ============================|| FIREBASE - REGISTER ||============================ //
 
 const AuthRegisterAwsCognito = () => {
+
+  //=======================================================Confirm Email dialog variables START
+  const [ConfirmEmailDialog, setConfirmEmailDialog] = useState(false);
+  const [confirmationCode, setConfirmationCode] = useState('');
+
+  const handleConfirmationCodeChange = event => {
+    setConfirmationCode(event.target.value);
+  };
+
+  const OpenEmailConfirmDialogFn = () => {
+    setConfirmEmailDialog(true);
+  };
+
+  const CloseConfirmEmailDialogFn = (event, reason) => {
+    if (reason !== 'backdropClick') {
+      setConfirmEmailDialog(false)
+    }
+  };
+
+
+  //=========================================================Confirm Email dialog variable END ===============================
+
+  //================================================================Confirm Code Cognito Request===============
+  async function SubmitConfirmationCode() {
+    try {
+      Auth.confirmSignUp(user.username, confirmationCode)
+        .then(() => {
+          notification.success({
+            message: 'Success',
+            description: 'Account confirmed!',
+            placement: 'bottomRight',
+            duration: 3.5
+          });
+          CloseConfirmEmailDialogFn();
+          navigate('/login');
+        })
+        .catch((err) => {
+          notification.error({
+            message: 'Unsuccessfull!!',
+            description: err.message,
+            placement: 'bottomRight',
+            duration: 3.5
+          });
+
+        });
+    } catch (err) {
+      console.log(err);
+    }
+    //remove two catches
+  }
+  //===========================================================================================================
+
+
   const [level, setLevel] = useState();
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -77,35 +139,31 @@ const AuthRegisterAwsCognito = () => {
         attributes: {
           email: values.email
         }
-      });
-      notification.success({
-        message: 'Success!!',
-        description: 'Account Created, Redirecting you to Confirmation...',
-        placement: 'topRight',
-        duration: 3.5
-      });
-      dispatch(setUsername(values.firstname + values.lastname));
+      })
+        .then(() => {
+          dispatch(setUsername(values.firstname + values.lastname));
 
-      await delay(3000);
-      // setCurrentView('registered');
-
-      await delay(3000);
-      navigate('/confirmcode');
-      // console.log('username: ' + user.username + ', value.username: ' + values.firstname + values.lastname);
-      // dispatch(setUsername(values.firstname + values.lastname));
-      // console.log('username: ' + user.username);
-      // navigate('/confirmcode');
-      //this is for confirmations.
-      // Auth.confirmSignUp(this.state.username, confirmationCode);
+          notification.success({
+            message: 'Success!!',
+            description: 'Account Created',
+            placement: 'bottomRight',
+            duration: 3.5
+          });
+          setCurrentView('registerform');
+          OpenEmailConfirmDialogFn();
+          // navigate('/confirmcode');
+        })
+        .catch((err) => {
+          notification.error({
+            message: 'Unsuccessfull!!',
+            description: err.message,
+            placement: 'bottomRight',
+            duration: 3
+          });
+          setCurrentView('registerform');
+        });
     } catch (err) {
-      notification.error({
-        message: 'Unsuccessfull!!',
-        description: err.message,
-        placement: 'topRight',
-        duration: 3.5
-      });
-      await delay(3000);
-      setCurrentView('registerform');
+
       console.error(err);
       setStatus({ success: false });
       setErrors({ submit: err.message });
@@ -123,11 +181,36 @@ const AuthRegisterAwsCognito = () => {
         <CircularProgress />
       </Box>
     );
-  } else if (currentView == 'registered') {
+  }
+
+  else if (currentView == 'registered') {
     return <Box sx={{ display: 'flex', mx: '40%' }}>{user.username}, Registered!!</Box>;
   } else if (currentView == 'registerform') {
     return (
       <>
+        <Dialog open={ConfirmEmailDialog} onClose={CloseConfirmEmailDialogFn}>
+          <DialogTitle>Confirm Email</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Check your email inbox/spam folder for confirmation code.
+            </DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="confirmation-code"
+              label="Confirmation Code"
+              fullWidth
+              variant="standard"
+              value={confirmationCode}
+              onChange={handleConfirmationCodeChange}
+
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={CloseConfirmEmailDialogFn}>Cancel Registration</Button>
+            <Button onClick={SubmitConfirmationCode}>Submit</Button>
+          </DialogActions>
+        </Dialog>
         <Formik
           initialValues={{
             firstname: '',

@@ -56,9 +56,9 @@ const AuthLoginAwsCognito = () => {
       Auth.signIn(values.email, values.password)
         .then(() => {
           notification.success({
-            message: 'SignIn Successful',
-            description: 'Logging you in...',
-            placement: 'topRight',
+            message: 'Successful',
+            description: 'Signed-In',
+            placement: 'bottomRight',
             duration: 3.5
           });
           navigate('/dashboard/default');
@@ -67,7 +67,7 @@ const AuthLoginAwsCognito = () => {
           notification.error({
             message: 'SignIn Unsuccessful',
             description: err.message,
-            placement: 'topRight',
+            placement: 'bottomRight',
             duration: 3.5
           });
         });
