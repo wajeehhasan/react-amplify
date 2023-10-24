@@ -57,7 +57,7 @@ const AuthLogin = () => {
       console.log('value: ' + user.userAuthenticationStatus);
       await new Promise((resolve) => setTimeout(resolve, 3000));
       dispatch(userLogOut(false));
-      console.log('value: ' + user.userAuthenticationStatus);
+      console.log('value: ' + user);
       setLoader(false);
       // navigate(`/dashboard/default`); //sdsd
     } catch (err) {

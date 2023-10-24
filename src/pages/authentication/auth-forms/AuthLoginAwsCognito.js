@@ -59,7 +59,6 @@ const AuthLoginAwsCognito = () => {
       dispatch(userLogOut(false));
       console.log('value: ' + user.userAuthenticationStatus);
       setLoader(false);
-      // navigate(`/dashboard/default`); //sdsd
     } catch (err) {
       setStatus({ success: false });
       setErrors({ submit: err.message });
@@ -69,7 +68,7 @@ const AuthLoginAwsCognito = () => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  // const navigate = useNavigate();
+
   if (loginLoader) {
     return (
       <Box sx={{ display: 'flex', mx: '40%' }}>

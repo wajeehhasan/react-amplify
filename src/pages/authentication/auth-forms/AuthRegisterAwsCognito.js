@@ -33,13 +33,21 @@ import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 //importing aws Cognito & antd for notification
 import { Auth } from 'aws-amplify';
 import { notification } from 'antd';
-// import awsExports from './aws-exports';
+
+//authstate variable
+import { setUsername } from 'store/reducers/authentication';
+// navigation
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 // ============================|| FIREBASE - REGISTER ||============================ //
 
 const AuthRegisterAwsCognito = () => {
   const [level, setLevel] = useState();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const user = useSelector((state) => state.userauth);
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -54,7 +62,7 @@ const AuthRegisterAwsCognito = () => {
   };
   async function handleSubmit(values, { setErrors, setStatus, setSubmitting }) {
     try {
-      //this adds user into cognito pool with status unconfirmed
+      // this adds user into cognito pool with status unconfirmed
       Auth.signUp({
         username: values.firstname + values.lastname,
         password: values.password,
@@ -65,10 +73,13 @@ const AuthRegisterAwsCognito = () => {
         .then(() => {
           notification.success({
             message: 'Success!!',
-            description: 'Account confirmed successfully!',
+            description: 'Account Created, Redirecting you to Confirmation...',
             placement: 'topRight',
             duration: 3.5
           });
+          dispatch(setUsername(values.firstname + values.lastname));
+          console.log('username: ' + user.username);
+          navigate('/confirmcode');
         })
         .catch((err) => {
           notification.error({
@@ -78,6 +89,10 @@ const AuthRegisterAwsCognito = () => {
             duration: 1.5
           });
         });
+      // console.log('username: ' + user.username + ', value.username: ' + values.firstname + values.lastname);
+      // dispatch(setUsername(values.firstname + values.lastname));
+      // console.log('username: ' + user.username);
+      // navigate('/confirmcode');
       //this is for confirmations.
       // Auth.confirmSignUp(this.state.username, confirmationCode);
     } catch (err) {

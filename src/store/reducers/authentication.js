@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // initial state
 const initialState = {
-  userAuthenticationStatus: false
+  userAuthenticationStatus: false,
+  username: ''
 };
 
 // ==============================|| SLICE - user ||============================== //
@@ -17,9 +18,12 @@ const userauth = createSlice({
     },
     userLogOut: (state, action) => {
       state.userAuthenticationStatus = action.payload;
+    },
+    setUsername: (state, action) => {
+      state.username = action.payload;
     }
   }
 });
 export default userauth.reducer;
 
-export const { userLogIn, userLogOut } = userauth.actions;
+export const { userLogIn, userLogOut, setUsername } = userauth.actions;
