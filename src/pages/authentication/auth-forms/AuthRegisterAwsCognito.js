@@ -30,6 +30,11 @@ import { strengthColor, strengthIndicator } from 'utils/password-strength';
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 
+//importing aws Cognito & antd for notification
+import { Auth } from 'aws-amplify';
+import { notification } from 'antd';
+// import awsExports from './aws-exports';
+
 // ============================|| FIREBASE - REGISTER ||============================ //
 
 const AuthRegisterAwsCognito = () => {
@@ -47,6 +52,42 @@ const AuthRegisterAwsCognito = () => {
     const temp = strengthIndicator(value);
     setLevel(strengthColor(temp));
   };
+  async function handleSubmit(values, { setErrors, setStatus, setSubmitting }) {
+    try {
+      //this adds user into cognito pool with status unconfirmed
+      Auth.signUp({
+        username: values.firstname + values.lastname,
+        password: values.password,
+        attributes: {
+          email: values.email
+        }
+      })
+        .then(() => {
+          notification.success({
+            message: 'Success!!',
+            description: 'Account confirmed successfully!',
+            placement: 'topRight',
+            duration: 3.5
+          });
+        })
+        .catch((err) => {
+          notification.error({
+            message: 'Unsuccessfull!!',
+            description: err.message,
+            placement: 'topRight',
+            duration: 1.5
+          });
+        });
+      //this is for confirmations.
+      // Auth.confirmSignUp(this.state.username, confirmationCode);
+    } catch (err) {
+      console.error(err);
+      setStatus({ success: false });
+      setErrors({ submit: err.message });
+      this.setState({ loading: true });
+      setSubmitting(false);
+    }
+  }
 
   useEffect(() => {
     changePassword('');
@@ -69,17 +110,7 @@ const AuthRegisterAwsCognito = () => {
           email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
           password: Yup.string().max(255).required('Password is required')
         })}
-        onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
-          try {
-            setStatus({ success: false });
-            setSubmitting(false);
-          } catch (err) {
-            console.error(err);
-            setStatus({ success: false });
-            setErrors({ submit: err.message });
-            setSubmitting(false);
-          }
-        }}
+        onSubmit={handleSubmit}
       >
         {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>

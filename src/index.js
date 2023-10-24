@@ -15,11 +15,21 @@ import 'assets/third-party/apex-chart.css';
 import App from './App';
 import { store } from 'store';
 import reportWebVitals from './reportWebVitals';
+import { Amplify } from 'aws-amplify';
+import awsExports from './pages/authentication/auth-forms/aws-exports.js';
+import '@aws-amplify/ui-react/styles.css';
 
 // ==============================|| MAIN - REACT DOM RENDER  ||============================== //
 
 const container = document.getElementById('root');
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
+Amplify.configure({
+  Auth: {
+    region: awsExports.REGION,
+    userPoolId: awsExports.USER_POOL_ID,
+    userPoolWebClientId: awsExports.USER_POOL_APP_CLIENT_ID
+  }
+});
 root.render(
   <StrictMode>
     <ReduxProvider store={store}>
