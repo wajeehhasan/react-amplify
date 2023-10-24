@@ -17,6 +17,7 @@ import { store } from 'store';
 import reportWebVitals from './reportWebVitals';
 import { Amplify } from 'aws-amplify';
 import awsExports from './pages/authentication/auth-forms/aws-exports.js';
+
 import '@aws-amplify/ui-react/styles.css';
 
 // ==============================|| MAIN - REACT DOM RENDER  ||============================== //
@@ -30,6 +31,7 @@ Amplify.configure({
     userPoolWebClientId: awsExports.USER_POOL_APP_CLIENT_ID
   }
 });
+
 root.render(
   <StrictMode>
     <ReduxProvider store={store}>
