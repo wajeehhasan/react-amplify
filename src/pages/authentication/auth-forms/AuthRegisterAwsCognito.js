@@ -32,7 +32,7 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 
 // project import
-import FirebaseSocial from './FirebaseSocial';
+// import FirebaseSocial from './FirebaseSocial';
 import AnimateButton from 'components/@extended/AnimateButton';
 import { strengthColor, strengthIndicator } from 'utils/password-strength';
 
@@ -213,7 +213,8 @@ const AuthRegisterAwsCognito = () => {
             firstname: Yup.string().max(255).required('First Name is required'),
             lastname: Yup.string().max(255).required('Last Name is required'),
             email: Yup.string().email('Must be a valid email').max(255).required('Email is required'),
-            password: Yup.string().max(255).required('Password is required')
+            password: Yup.string().max(255).required('Password is required'),
+            username: Yup.string().max(30).required('Username is required')
           })}
           onSubmit={handleSubmit}
         >
@@ -268,18 +269,18 @@ const AuthRegisterAwsCognito = () => {
                     <InputLabel htmlFor="company-signup">Username</InputLabel>
                     <OutlinedInput
                       fullWidth
-                      error={Boolean(touched.company && errors.company)}
+                      error={Boolean(touched.username && errors.username)}
                       id="company-signup"
                       value={values.username}
-                      name="company"
+                      name="username"
                       onBlur={handleBlur}
                       onChange={handleChange}
                       placeholder="Demo Inc."
                       inputProps={{}}
                     />
-                    {touched.company && errors.company && (
+                    {touched.username && errors.username && (
                       <FormHelperText error id="helper-text-company-signup">
-                        {errors.company}
+                        {errors.username}
                       </FormHelperText>
                     )}
                   </Stack>
@@ -394,7 +395,7 @@ const AuthRegisterAwsCognito = () => {
                   </Divider>
                 </Grid> */}
                 <Grid item xs={12}>
-                  <FirebaseSocial />
+                  {/* <FirebaseSocial /> */}
                 </Grid>
               </Grid>
             </form>

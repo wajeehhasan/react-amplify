@@ -28,6 +28,7 @@ import SettingTab from './SettingTab';
 //authentication logout
 import { useNavigate } from 'react-router-dom';
 import { useAuthenticator } from '@aws-amplify/ui-react';
+import { useSelector } from 'react-redux';
 //////
 
 // assets
@@ -59,6 +60,7 @@ function a11yProps(index) {
 // ==============================|| HEADER CONTENT - PROFILE ||============================== //
 
 const Profile = () => {
+  const user = useSelector((state) => state.userauth);
   const navigate = useNavigate();
   // const dispatch = useDispatch();
   const { signOut } = useAuthenticator();
@@ -107,7 +109,7 @@ const Profile = () => {
       >
         <Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
           <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
-          <Typography variant="subtitle1">John Doe</Typography>
+          <Typography variant="subtitle1">{user.username}</Typography>
         </Stack>
       </ButtonBase>
       <Popper

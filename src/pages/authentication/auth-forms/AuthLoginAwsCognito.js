@@ -2,7 +2,7 @@
 import {
   Button,
   // Checkbox,
-  Divider,
+  // Divider,
   // FormControlLabel,
   FormHelperText,
   Grid,
@@ -12,7 +12,7 @@ import {
   InputLabel,
   OutlinedInput,
   Stack,
-  Typography
+  // Typography
 } from '@mui/material';
 
 import { React, useState } from 'react';
@@ -31,7 +31,7 @@ import AnimateButton from 'components/@extended/AnimateButton';
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
-import { setToken } from 'store/reducers/authentication';
+import { setToken, setUsername } from 'store/reducers/authentication';
 
 import { Auth } from 'aws-amplify';
 import { notification } from 'antd';
@@ -43,7 +43,7 @@ const AuthLoginAwsCognito = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const user = useSelector((state) => state.userauth);
+
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -71,6 +71,40 @@ const AuthLoginAwsCognito = () => {
             duration: 3.5
           });
         });
+      let info = await Auth.currentSession();
+      let userName = info.idToken.payload['cognito:username'];
+      console.log(userName);
+      dispatch(setUsername(userName));
+    } catch (err) {
+      setStatus({ success: false });
+      setErrors({ submit: err.message });
+      setSubmitting(false);
+    }
+  }
+  async function guestLogin() {
+    try {
+      Auth.signIn("tawoyo2857@weirby.com", "Abc123!klllll$$333")
+        .then((data) => {
+          notification.success({
+            message: 'Successful',
+            description: 'Signed-In',
+            placement: 'bottomRight',
+            duration: 3.5
+          });
+          dispatch(setToken(data.signInUserSession.accessToken.jwtToken));
+          navigate('/dashboard/default');
+        })
+        .catch((err) => {
+          notification.error({
+            message: 'SignIn Unsuccessful',
+            description: err.message,
+            placement: 'bottomRight',
+            duration: 3.5
+          });
+        });
+      let info = await Auth.currentSession();
+      let userName = info.idToken.payload['cognito:username'];
+      dispatch(setUsername(userName));
     } catch (err) {
       setStatus({ success: false });
       setErrors({ submit: err.message });
@@ -186,10 +220,17 @@ const AuthLoginAwsCognito = () => {
                 </AnimateButton>
               </Grid>
               <Grid item xs={12}>
+                <AnimateButton>
+                  <Button disableElevation disabled={isSubmitting} onClick={guestLogin} fullWidth size="large" variant="contained" color="primary">
+                    GuestLogin
+                  </Button>
+                </AnimateButton>
+              </Grid>
+              {/* <Grid item xs={12}>
                 <Divider>
                   <Typography variant="caption"> Login with</Typography>
                 </Divider>
-              </Grid>
+              </Grid> */}
               {/* login with facebook, google,  */}
               {/* <Grid item xs={12}>
                 <FirebaseSocial />
