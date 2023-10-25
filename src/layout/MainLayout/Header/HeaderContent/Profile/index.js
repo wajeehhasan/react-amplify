@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -16,9 +16,18 @@ import {
   Stack,
   Tab,
   Tabs,
-  Typography
+  Typography,
+  Button,
+  CircularProgress
+  // CircularProgress
 } from '@mui/material';
-
+////////////////////dialog signout////////////////////
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+////////////////////////////////////////////////////
 // project import
 import MainCard from 'components/MainCard';
 import Transitions from 'components/@extended/Transitions';
@@ -27,8 +36,9 @@ import SettingTab from './SettingTab';
 
 //authentication logout
 import { useNavigate } from 'react-router-dom';
-import { useAuthenticator } from '@aws-amplify/ui-react';
-import { useSelector } from 'react-redux';
+// import { useAuthenticator } from '@aws-amplify/ui-react';
+import { Auth } from 'aws-amplify';
+// import { useSelector } from 'react-redux';
 //////
 
 // assets
@@ -60,16 +70,52 @@ function a11yProps(index) {
 // ==============================|| HEADER CONTENT - PROFILE ||============================== //
 
 const Profile = () => {
-  const user = useSelector((state) => state.userauth);
+  // const user = useSelector((state) => state.userauth);
   const navigate = useNavigate();
+
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   // const dispatch = useDispatch();
-  const { signOut } = useAuthenticator();
+  let userName;
+  // const { signOut } = useAuthenticator();
+  useEffect(() => {
+    const fetchUserName = async () => {
+      let info = await Auth.currentSession();
+      console.log(userName);
+      userName = info.idToken.payload['cognito:username'];
+      console.log(userName);
+    }
+    fetchUserName()
+      .catch((err) => {
+        console.log(err);
+      });
+
+  }, [userName]);
+  //=======================================================Confirm Email dialog variables START===========================
+  const [SignOutDialogState, setSignOutDialogState] = useState(false);
+
+
+
+  const OpenSignOutDialog = () => {
+    setSignOutDialogState(true);
+  };
+
+  const CloseSignOutDialog = (event, reason) => {
+    if (reason !== 'backdropClick') {
+      setConfirmEmailDialog(false);
+    }
+  };
+
+  //=========================================================Confirm Email dialog variable END ===============================
   const theme = useTheme();
   // const user = useSelector((state) => state.userauth);
-  const handleLogout = async () => {
-    signOut();
+  async function handleLogout() {
+    // signOut();
+    Auth.signOut();
+    OpenSignOutDialog();
+    await delay(3000);
     navigate('/login');
-  };
+    // navigate(0);
+  }
 
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
@@ -92,127 +138,145 @@ const Profile = () => {
 
   const iconBackColorOpen = 'grey.300';
 
+
+
   return (
-    <Box sx={{ flexShrink: 0, ml: 0.75 }}>
-      <ButtonBase
-        sx={{
-          p: 0.25,
-          bgcolor: open ? iconBackColorOpen : 'transparent',
-          borderRadius: 1,
-          '&:hover': { bgcolor: 'secondary.lighter' }
-        }}
-        aria-label="open profile"
-        ref={anchorRef}
-        aria-controls={open ? 'profile-grow' : undefined}
-        aria-haspopup="true"
-        onClick={handleToggle}
-      >
-        <Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
-          <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
-          <Typography variant="subtitle1">{user.username}</Typography>
-        </Stack>
-      </ButtonBase>
-      <Popper
-        placement="bottom-end"
-        open={open}
-        anchorEl={anchorRef.current}
-        role={undefined}
-        transition
-        disablePortal
-        popperOptions={{
-          modifiers: [
-            {
-              name: 'offset',
-              options: {
-                offset: [0, 9]
+    <>
+      <Dialog open={SignOutDialogState} onClose={CloseSignOutDialog}>
+        <DialogTitle>Signing Out</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Please Wait!</DialogContentText>
+        </DialogContent>
+        <Box sx={{ display: 'relative', textAlign: "center" }}>
+          <CircularProgress />
+        </Box>
+        <DialogActions>
+          <Button onClick={CloseSignOutDialog}></Button>
+          <Button onClick={CloseSignOutDialog}></Button>
+        </DialogActions>
+      </Dialog>
+      <Box sx={{ flexShrink: 0, ml: 0.75 }}>
+        <ButtonBase
+          sx={{
+            p: 0.25,
+            bgcolor: open ? iconBackColorOpen : 'transparent',
+            borderRadius: 1,
+            '&:hover': { bgcolor: 'secondary.lighter' }
+          }}
+          aria-label="open profile"
+          ref={anchorRef}
+          aria-controls={open ? 'profile-grow' : undefined}
+          aria-haspopup="true"
+          onClick={handleToggle}
+        >
+          <Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
+            <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
+            <Typography variant="subtitle1">{userName}</Typography>
+          </Stack>
+        </ButtonBase>
+        <Popper
+          placement="bottom-end"
+          open={open}
+          anchorEl={anchorRef.current}
+          role={undefined}
+          transition
+          disablePortal
+          popperOptions={{
+            modifiers: [
+              {
+                name: 'offset',
+                options: {
+                  offset: [0, 9]
+                }
               }
-            }
-          ]
-        }}
-      >
-        {({ TransitionProps }) => (
-          <Transitions type="fade" in={open} {...TransitionProps}>
-            {open && (
-              <Paper
-                sx={{
-                  boxShadow: theme.customShadows.z1,
-                  width: 290,
-                  minWidth: 240,
-                  maxWidth: 290,
-                  [theme.breakpoints.down('md')]: {
-                    maxWidth: 250
-                  }
-                }}
-              >
-                <ClickAwayListener onClickAway={handleClose}>
-                  <MainCard elevation={0} border={false} content={false}>
-                    <CardContent sx={{ px: 2.5, pt: 3 }}>
-                      <Grid container justifyContent="space-between" alignItems="center">
-                        <Grid item>
-                          <Stack direction="row" spacing={1.25} alignItems="center">
-                            <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
-                            <Stack>
-                              <Typography variant="h6">John Doe</Typography>
-                              <Typography variant="body2" color="textSecondary">
-                                UI/UX Designer
-                              </Typography>
+            ]
+          }}
+        >
+          {({ TransitionProps }) => (
+            <Transitions type="fade" in={open} {...TransitionProps}>
+              {open && (
+                <Paper
+                  sx={{
+                    boxShadow: theme.customShadows.z1,
+                    width: 290,
+                    minWidth: 240,
+                    maxWidth: 290,
+                    [theme.breakpoints.down('md')]: {
+                      maxWidth: 250
+                    }
+                  }}
+                >
+                  <ClickAwayListener onClickAway={handleClose}>
+                    <MainCard elevation={0} border={false} content={false}>
+                      <CardContent sx={{ px: 2.5, pt: 3 }}>
+                        <Grid container justifyContent="space-between" alignItems="center">
+                          <Grid item>
+                            <Stack direction="row" spacing={1.25} alignItems="center">
+                              <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
+                              <Stack>
+                                <Typography variant="h6">{userName}</Typography>
+                                <Typography variant="body2" color="textSecondary">
+                                  UI/UX Designer
+                                </Typography>
+                              </Stack>
                             </Stack>
-                          </Stack>
+                          </Grid>
+                          <Grid item>
+                            <IconButton size="large" color="secondary" onClick={handleLogout}>
+                              <LogoutOutlined />
+                            </IconButton>
+                          </Grid>
                         </Grid>
-                        <Grid item>
-                          <IconButton size="large" color="secondary" onClick={handleLogout}>
-                            <LogoutOutlined />
-                          </IconButton>
-                        </Grid>
-                      </Grid>
-                    </CardContent>
-                    {open && (
-                      <>
-                        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-                          <Tabs variant="fullWidth" value={value} onChange={handleChange} aria-label="profile tabs">
-                            <Tab
-                              sx={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                textTransform: 'capitalize'
-                              }}
-                              icon={<UserOutlined style={{ marginBottom: 0, marginRight: '10px' }} />}
-                              label="Profile"
-                              {...a11yProps(0)}
-                            />
-                            <Tab
-                              sx={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                textTransform: 'capitalize'
-                              }}
-                              icon={<SettingOutlined style={{ marginBottom: 0, marginRight: '10px' }} />}
-                              label="Setting"
-                              {...a11yProps(1)}
-                            />
-                          </Tabs>
-                        </Box>
-                        <TabPanel value={value} index={0} dir={theme.direction}>
-                          <ProfileTab handleLogout={handleLogout} />
-                        </TabPanel>
-                        <TabPanel value={value} index={1} dir={theme.direction}>
-                          <SettingTab />
-                        </TabPanel>
-                      </>
-                    )}
-                  </MainCard>
-                </ClickAwayListener>
-              </Paper>
-            )}
-          </Transitions>
-        )}
-      </Popper>
-    </Box>
+                      </CardContent>
+                      {open && (
+                        <>
+                          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                            <Tabs variant="fullWidth" value={value} onChange={handleChange} aria-label="profile tabs">
+                              <Tab
+                                sx={{
+                                  display: 'flex',
+                                  flexDirection: 'row',
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                  textTransform: 'capitalize'
+                                }}
+                                icon={<UserOutlined style={{ marginBottom: 0, marginRight: '10px' }} />}
+                                label="Profile"
+                                {...a11yProps(0)}
+                              />
+                              <Tab
+                                sx={{
+                                  display: 'flex',
+                                  flexDirection: 'row',
+                                  justifyContent: 'center',
+                                  alignItems: 'center',
+                                  textTransform: 'capitalize'
+                                }}
+                                icon={<SettingOutlined style={{ marginBottom: 0, marginRight: '10px' }} />}
+                                label="Setting"
+                                {...a11yProps(1)}
+                              />
+                            </Tabs>
+                          </Box>
+                          <TabPanel value={value} index={0} dir={theme.direction}>
+                            <ProfileTab handleLogout={handleLogout} />
+                          </TabPanel>
+                          <TabPanel value={value} index={1} dir={theme.direction}>
+                            <SettingTab />
+                          </TabPanel>
+                        </>
+                      )}
+                    </MainCard>
+                  </ClickAwayListener>
+                </Paper>
+              )}
+            </Transitions>
+          )}
+        </Popper>
+      </Box>
+    </>
   );
+
 };
 
 export default Profile;

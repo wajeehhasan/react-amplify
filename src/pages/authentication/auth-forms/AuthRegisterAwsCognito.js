@@ -60,6 +60,7 @@ const AuthRegisterAwsCognito = () => {
   const [ConfirmEmailDialog, setConfirmEmailDialog] = useState(false);
   const [confirmationCode, setConfirmationCode] = useState('');
 
+
   const handleConfirmationCodeChange = (event) => {
     setConfirmationCode(event.target.value);
   };
