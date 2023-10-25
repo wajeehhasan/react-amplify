@@ -3,6 +3,7 @@ import { lazy } from 'react';
 // project import
 import Loadable from 'components/Loadable';
 import MainLayout from 'layout/MainLayout';
+import NotFound from 'pages/components-overview/NotFound/NotFound';
 
 // render - dashboard
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard')));
@@ -18,7 +19,6 @@ const AntIcons = Loadable(lazy(() => import('pages/components-overview/AntIcons'
 
 // ==============================|| MAIN ROUTING ||============================== //
 
-
 const MainRoutes = {
   path: '/',
   element: <MainLayout></MainLayout>,
@@ -26,6 +26,10 @@ const MainRoutes = {
     {
       path: '/',
       element: <DashboardDefault />
+    },
+    {
+      path: '*',
+      element: <NotFound />
     },
     {
       path: 'color',

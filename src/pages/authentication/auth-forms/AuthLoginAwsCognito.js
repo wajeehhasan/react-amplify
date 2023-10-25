@@ -1,12 +1,12 @@
 // material-ui
 import {
   Button,
-  Checkbox,
+  // Checkbox,
   Divider,
-  FormControlLabel,
+  // FormControlLabel,
   FormHelperText,
   Grid,
-  Link,
+  // Link,
   IconButton,
   InputAdornment,
   InputLabel,
@@ -16,7 +16,7 @@ import {
 } from '@mui/material';
 
 import { React, useState } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // import CircularProgress from '@mui/material/CircularProgress';
 // import Box from '@mui/material/Box';
 
@@ -25,7 +25,7 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 
 // project import
-import FirebaseSocial from './FirebaseSocial';
+// import FirebaseSocial from './FirebaseSocial';
 import AnimateButton from 'components/@extended/AnimateButton';
 
 // assets
@@ -39,7 +39,7 @@ import { notification } from 'antd';
 // ============================|| FIREBASE - LOGIN ||============================ //
 
 const AuthLoginAwsCognito = () => {
-  const [checked, setChecked] = useState(false);
+  // const [checked, setChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   // const dispatch = useDispatch();
@@ -153,8 +153,8 @@ const AuthLoginAwsCognito = () => {
                   )}
                 </Stack>
               </Grid>
-
-              <Grid item xs={12} sx={{ mt: -1 }}>
+              {/* forgot password needs to be implemented */}
+              {/* <Grid item xs={12} sx={{ mt: -1 }}>
                 <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={2}>
                   <FormControlLabel
                     control={
@@ -172,7 +172,7 @@ const AuthLoginAwsCognito = () => {
                     Forgot Password?
                   </Link>
                 </Stack>
-              </Grid>
+              </Grid> */}
               {errors.submit && (
                 <Grid item xs={12}>
                   <FormHelperText error>{errors.submit}</FormHelperText>
@@ -190,9 +190,10 @@ const AuthLoginAwsCognito = () => {
                   <Typography variant="caption"> Login with</Typography>
                 </Divider>
               </Grid>
-              <Grid item xs={12}>
+              {/* login with facebook, google,  */}
+              {/* <Grid item xs={12}>
                 <FirebaseSocial />
-              </Grid>
+              </Grid> */}
             </Grid>
           </form>
         )}
