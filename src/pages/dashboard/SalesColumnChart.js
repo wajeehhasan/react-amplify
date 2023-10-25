@@ -49,7 +49,7 @@ const columnChartOptions = {
   },
   legend: {
     show: true,
-    fontFamily: `'Public Sans', sans-serif`,
+    fontFamily: `system-ui`,
     offsetX: 10,
     offsetY: 10,
     labels: {

@@ -33,7 +33,7 @@ import MainCard from 'components/MainCard';
 import Transitions from 'components/@extended/Transitions';
 import ProfileTab from './ProfileTab';
 import SettingTab from './SettingTab';
-
+import { notification } from 'antd';
 //authentication logout
 import { useNavigate } from 'react-router-dom';
 // import { useAuthenticator } from '@aws-amplify/ui-react';
@@ -109,9 +109,25 @@ const Profile = () => {
   const theme = useTheme();
   async function handleLogout() {
     // signOut();
-    Auth.signOut();
     OpenSignOutDialog();
-    await delay(3000);
+    await delay(2000);
+    Auth.signOut()
+      .then(() => {
+        notification.success({
+          message: 'Successful',
+          description: 'Signed-Out',
+          placement: 'bottomRight',
+          duration: 3.5
+        });
+      })
+      .catch((err) => {
+        notification.error({
+          message: 'SignIn Unsuccessful',
+          description: err.message,
+          placement: 'bottomRight',
+          duration: 3.5
+        });
+      });
     navigate('/login');
     // navigate(0);
   }
@@ -136,12 +152,12 @@ const Profile = () => {
   const iconBackColorOpen = 'grey.300';
   return (
     <>
-      <Dialog open={SignOutDialogState} onClose={CloseSignOutDialog}>
-        <DialogTitle>Signing Out</DialogTitle>
+      <Dialog sx={{ fontFamily: ['monospace'], color: 'success.main' }} open={SignOutDialogState} onClose={CloseSignOutDialog}>
+        <DialogTitle sx={{ fontFamily: ['monospace'] }}>Signing Out</DialogTitle>
         <DialogContent>
-          <DialogContentText>Please Wait!</DialogContentText>
+          <DialogContentText sx={{ fontFamily: ['monospace'] }}>Please Wait..</DialogContentText>
         </DialogContent>
-        <Box sx={{ display: 'relative', textAlign: "center" }}>
+        <Box sx={{ display: 'relative', textAlign: "center", width: '324px' }}>
           <CircularProgress />
         </Box>
         <DialogActions>

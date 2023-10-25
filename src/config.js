@@ -2,7 +2,7 @@
 
 const config = {
   defaultPath: '/dashboard/default',
-  fontFamily: `'Public Sans', sans-serif`,
+  fontFamily: `system-ui`,
   i18n: 'en',
   miniDrawer: false,
   container: true,
