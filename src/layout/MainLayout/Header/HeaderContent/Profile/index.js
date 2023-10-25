@@ -25,6 +25,11 @@ import Transitions from 'components/@extended/Transitions';
 import ProfileTab from './ProfileTab';
 import SettingTab from './SettingTab';
 
+//authentication logout
+import { useNavigate } from 'react-router-dom';
+import { useAuthenticator } from '@aws-amplify/ui-react';
+//////
+
 // assets
 import avatar1 from 'assets/images/users/avatar-1.png';
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons';
@@ -54,10 +59,14 @@ function a11yProps(index) {
 // ==============================|| HEADER CONTENT - PROFILE ||============================== //
 
 const Profile = () => {
+  const navigate = useNavigate();
+  // const dispatch = useDispatch();
+  const { signOut } = useAuthenticator();
   const theme = useTheme();
-
+  // const user = useSelector((state) => state.userauth);
   const handleLogout = async () => {
-    // logout
+    signOut();
+    navigate('/login');
   };
 
   const anchorRef = useRef(null);

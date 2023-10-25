@@ -30,8 +30,8 @@ import AnimateButton from 'components/@extended/AnimateButton';
 
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { userLogIn } from 'store/reducers/authentication';
+import { useDispatch } from 'react-redux';
+import { setToken } from 'store/reducers/authentication';
 
 import { Auth } from 'aws-amplify';
 import { notification } from 'antd';
@@ -42,7 +42,7 @@ const AuthLoginAwsCognito = () => {
   // const [checked, setChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const user = useSelector((state) => state.userauth);
 
   const handleClickShowPassword = () => {
@@ -52,15 +52,15 @@ const AuthLoginAwsCognito = () => {
   //submit handle logic
   async function handleSubmit(values, { setErrors, setStatus, setSubmitting }) {
     try {
-      console.log('here');
       Auth.signIn(values.email, values.password)
-        .then(() => {
+        .then((data) => {
           notification.success({
             message: 'Successful',
             description: 'Signed-In',
             placement: 'bottomRight',
             duration: 3.5
           });
+          dispatch(setToken(data.signInUserSession.accessToken.jwtToken));
           navigate('/dashboard/default');
         })
         .catch((err) => {

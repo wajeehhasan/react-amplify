@@ -13,7 +13,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import {
   Box,
   Button,
-  Divider,
+  // Divider,
   FormControl,
   FormHelperText,
   Grid,
@@ -49,7 +49,6 @@ import { setUsername } from 'store/reducers/authentication';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-
 //icons
 
 // icons
@@ -57,12 +56,11 @@ import { useSelector, useDispatch } from 'react-redux';
 // ============================|| FIREBASE - REGISTER ||============================ //
 
 const AuthRegisterAwsCognito = () => {
-
   //=======================================================Confirm Email dialog variables START
   const [ConfirmEmailDialog, setConfirmEmailDialog] = useState(false);
   const [confirmationCode, setConfirmationCode] = useState('');
 
-  const handleConfirmationCodeChange = event => {
+  const handleConfirmationCodeChange = (event) => {
     setConfirmationCode(event.target.value);
   };
 
@@ -72,10 +70,9 @@ const AuthRegisterAwsCognito = () => {
 
   const CloseConfirmEmailDialogFn = (event, reason) => {
     if (reason !== 'backdropClick') {
-      setConfirmEmailDialog(false)
+      setConfirmEmailDialog(false);
     }
   };
-
 
   //=========================================================Confirm Email dialog variable END ===============================
 
@@ -100,7 +97,6 @@ const AuthRegisterAwsCognito = () => {
             placement: 'bottomRight',
             duration: 3.5
           });
-
         });
     } catch (err) {
       console.log(err);
@@ -108,7 +104,6 @@ const AuthRegisterAwsCognito = () => {
     //remove two catches
   }
   //===========================================================================================================
-
 
   const [level, setLevel] = useState();
 
@@ -134,14 +129,14 @@ const AuthRegisterAwsCognito = () => {
       // this adds user into cognito pool with status unconfirmed
       setCurrentView('registering');
       Auth.signUp({
-        username: values.firstname + values.lastname,
+        username: values.username,
         password: values.password,
         attributes: {
           email: values.email
         }
       })
         .then(() => {
-          dispatch(setUsername(values.firstname + values.lastname));
+          dispatch(setUsername(values.username));
 
           notification.success({
             message: 'Success!!',
@@ -163,7 +158,6 @@ const AuthRegisterAwsCognito = () => {
           setCurrentView('registerform');
         });
     } catch (err) {
-
       console.error(err);
       setStatus({ success: false });
       setErrors({ submit: err.message });
@@ -181,9 +175,7 @@ const AuthRegisterAwsCognito = () => {
         <CircularProgress />
       </Box>
     );
-  }
-
-  else if (currentView == 'registered') {
+  } else if (currentView == 'registered') {
     return <Box sx={{ display: 'flex', mx: '40%' }}>{user.username}, Registered!!</Box>;
   } else if (currentView == 'registerform') {
     return (
@@ -191,9 +183,7 @@ const AuthRegisterAwsCognito = () => {
         <Dialog open={ConfirmEmailDialog} onClose={CloseConfirmEmailDialogFn}>
           <DialogTitle>Confirm Email</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              Check your email inbox/spam folder for confirmation code.
-            </DialogContentText>
+            <DialogContentText>Check your email inbox/spam folder for confirmation code.</DialogContentText>
             <TextField
               autoFocus
               margin="dense"
@@ -203,7 +193,6 @@ const AuthRegisterAwsCognito = () => {
               variant="standard"
               value={confirmationCode}
               onChange={handleConfirmationCodeChange}
-
             />
           </DialogContent>
           <DialogActions>
@@ -216,7 +205,7 @@ const AuthRegisterAwsCognito = () => {
             firstname: '',
             lastname: '',
             email: '',
-            company: '',
+            username: '',
             password: '',
             submit: null
           }}
@@ -276,12 +265,12 @@ const AuthRegisterAwsCognito = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <Stack spacing={1}>
-                    <InputLabel htmlFor="company-signup">Company</InputLabel>
+                    <InputLabel htmlFor="company-signup">Username</InputLabel>
                     <OutlinedInput
                       fullWidth
                       error={Boolean(touched.company && errors.company)}
                       id="company-signup"
-                      value={values.company}
+                      value={values.username}
                       name="company"
                       onBlur={handleBlur}
                       onChange={handleChange}
@@ -399,11 +388,11 @@ const AuthRegisterAwsCognito = () => {
                     </Button>
                   </AnimateButton>
                 </Grid>
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                   <Divider>
                     <Typography variant="caption">Sign up with</Typography>
                   </Divider>
-                </Grid>
+                </Grid> */}
                 <Grid item xs={12}>
                   <FirebaseSocial />
                 </Grid>
