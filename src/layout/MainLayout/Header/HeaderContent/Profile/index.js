@@ -73,32 +73,32 @@ const Profile = () => {
   // const user = useSelector((state) => state.userauth);
   const navigate = useNavigate();
 
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-  // const dispatch = useDispatch();
-  let userName;
-  // const { signOut } = useAuthenticator();
-  useEffect(() => {
-    const fetchUserName = async () => {
-      let info = await Auth.currentSession();
-      console.log(userName);
-      userName = info.idToken.payload['cognito:username'];
-      console.log(userName);
-    }
-    fetchUserName()
-      .catch((err) => {
-        console.log(err);
-      });
 
-  }, [userName]);
+  /////username/////////////////////////////////////
+  const [username, setUsername] = useState(null);
+  useEffect(() => {
+    // Call your async method here
+    fetchUsername()
+      .then(result => {
+        setUsername(result);
+      })
+      .catch(error => {
+        console.error("Error fetching username: ", error);
+      });
+  }, []);
+  const fetchUsername = async () => {
+    const info = await Auth.currentAuthenticatedUser();
+    const result = await info.username;
+    return result;
+  };
+  /////username/////////////////////////////////////
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
   //=======================================================Confirm Email dialog variables START===========================
   const [SignOutDialogState, setSignOutDialogState] = useState(false);
-
-
-
   const OpenSignOutDialog = () => {
     setSignOutDialogState(true);
   };
-
   const CloseSignOutDialog = (event, reason) => {
     if (reason !== 'backdropClick') {
       setConfirmEmailDialog(false);
@@ -107,7 +107,6 @@ const Profile = () => {
 
   //=========================================================Confirm Email dialog variable END ===============================
   const theme = useTheme();
-  // const user = useSelector((state) => state.userauth);
   async function handleLogout() {
     // signOut();
     Auth.signOut();
@@ -116,7 +115,6 @@ const Profile = () => {
     navigate('/login');
     // navigate(0);
   }
-
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
   const handleToggle = () => {
@@ -135,11 +133,7 @@ const Profile = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   const iconBackColorOpen = 'grey.300';
-
-
-
   return (
     <>
       <Dialog open={SignOutDialogState} onClose={CloseSignOutDialog}>
@@ -171,7 +165,7 @@ const Profile = () => {
         >
           <Stack direction="row" spacing={2} alignItems="center" sx={{ p: 0.5 }}>
             <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
-            <Typography variant="subtitle1">{userName}</Typography>
+            <Typography variant="subtitle1">{username}</Typography>
           </Stack>
         </ButtonBase>
         <Popper
@@ -214,7 +208,7 @@ const Profile = () => {
                             <Stack direction="row" spacing={1.25} alignItems="center">
                               <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
                               <Stack>
-                                <Typography variant="h6">{userName}</Typography>
+                                <Typography variant="h6">{username}</Typography>
                                 <Typography variant="body2" color="textSecondary">
                                   UI/UX Designer
                                 </Typography>

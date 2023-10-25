@@ -47,7 +47,6 @@ const AuthLoginAwsCognito = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -67,6 +66,7 @@ const AuthLoginAwsCognito = () => {
           });
           dispatch(setToken(data.signInUserSession.accessToken.jwtToken));
           navigate('/dashboard/default');
+
         })
         .catch((err) => {
           notification.error({
@@ -109,9 +109,9 @@ const AuthLoginAwsCognito = () => {
             duration: 3.5
           });
         });
-      let info = await Auth.currentSession();
+      let info = await Auth.currentAuthenticatedUser();
       let userName = info.idToken.payload['cognito:username'];
-      dispatch(setUsername(userName, info));
+      dispatch(setUsername(userName));
       console.log(userName, info);
     } catch (err) {
       console.log(err.message);
