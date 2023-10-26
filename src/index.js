@@ -19,6 +19,7 @@ import { store } from 'store';
 import reportWebVitals from './reportWebVitals';
 import { Amplify } from 'aws-amplify';
 import awsExports from './pages/authentication/auth-forms/aws-exports.js';
+import 'index.css';
 
 import '@aws-amplify/ui-react/styles.css';
 

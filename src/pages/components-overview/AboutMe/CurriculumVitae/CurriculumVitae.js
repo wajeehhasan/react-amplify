@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 // import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import 'pages/components-overview/AboutMe/aboutme.css';
+// import Socials from '../Socials/Socials';
 
 // const bull = (
 //   <Box component="span" sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}>
@@ -16,7 +17,7 @@ const CurriculumVitae = () => {
     <>
       <div>
         <div>
-          <div className="heading-class">About Myself</div>
+          <div className="heading-class">About Myself </div>
           <div>
             <div>
               <Card sx={{ minWidth: 275 }}>
@@ -128,7 +129,7 @@ const CurriculumVitae = () => {
               <Card className="card-style-css" sx={{ minWidth: 275 }}>
                 <CardContent>
                   <Typography variant="h5" component="div">
-                    AWS/Azure
+                    Amazon Web Services
                   </Typography>
                   <Typography sx={{ mb: 1.5 }} color="text.secondary"></Typography>
                   <Typography className="content-class" variant="body2">

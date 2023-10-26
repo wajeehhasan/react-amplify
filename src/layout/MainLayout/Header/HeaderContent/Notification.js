@@ -1,7 +1,8 @@
 import { useRef, useState } from 'react';
-
 // material-ui
 import { useTheme } from '@mui/material/styles';
+import CallMadeIcon from '@mui/icons-material/CallMade';
+import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
 import {
   Avatar,
   Badge,
@@ -25,7 +26,7 @@ import MainCard from 'components/MainCard';
 import Transitions from 'components/@extended/Transitions';
 
 // assets
-import { BellOutlined, CloseOutlined, GiftOutlined, MessageOutlined, SettingOutlined } from '@ant-design/icons';
+import { CloseOutlined, InstagramOutlined, FacebookOutlined, GithubOutlined, LinkedinOutlined } from '@ant-design/icons';
 
 // sx styles
 const avatarSX = {
@@ -78,8 +79,8 @@ const Notification = () => {
         aria-haspopup="true"
         onClick={handleToggle}
       >
-        <Badge badgeContent={4} color="primary">
-          <BellOutlined />
+        <Badge badgeContent={0} color="primary">
+          <ConnectWithoutContactIcon />
         </Badge>
       </IconButton>
       <Popper
@@ -115,7 +116,7 @@ const Notification = () => {
             >
               <ClickAwayListener onClickAway={handleClose}>
                 <MainCard
-                  title="Notification"
+                  title="Social Accounts"
                   elevation={0}
                   border={false}
                   content={false}
@@ -136,122 +137,119 @@ const Notification = () => {
                       }
                     }}
                   >
-                    <ListItemButton>
+                    <ListItemButton onClick={() => window.open("https://www.linkedin.com/in/wajeehhasan/", "_blank")}>
                       <ListItemAvatar>
                         <Avatar
                           sx={{
-                            color: 'success.main',
-                            bgcolor: 'success.lighter'
+                            color: 'blue',
+                            bgcolor: 'white'
                           }}
                         >
-                          <GiftOutlined />
+                          <LinkedinOutlined />
                         </Avatar>
                       </ListItemAvatar>
                       <ListItemText
                         primary={
                           <Typography variant="h6">
-                            It&apos;s{' '}
                             <Typography component="span" variant="subtitle1">
-                              Cristina danny&apos;s
+                              LinkedIn
                             </Typography>{' '}
-                            birthday today.
                           </Typography>
                         }
-                        secondary="2 min ago"
+
                       />
                       <ListItemSecondaryAction>
                         <Typography variant="caption" noWrap>
-                          3:00 AM
+                          <CallMadeIcon onClick={() => window.open("https://www.linkedin.com/in/wajeehhasan/", "_blank")} sx={{ fontSize: "medium" }}></CallMadeIcon>
                         </Typography>
                       </ListItemSecondaryAction>
                     </ListItemButton>
                     <Divider />
-                    <ListItemButton>
+                    <ListItemButton onClick={() => window.open("https://github.com/wajeehhasan", "_blank")}>
                       <ListItemAvatar>
                         <Avatar
                           sx={{
-                            color: 'primary.main',
-                            bgcolor: 'primary.lighter'
+                            color: 'black',
+                            bgcolor: 'white'
                           }}
                         >
-                          <MessageOutlined />
+                          <GithubOutlined />
                         </Avatar>
                       </ListItemAvatar>
                       <ListItemText
                         primary={
                           <Typography variant="h6">
                             <Typography component="span" variant="subtitle1">
-                              Aida Burg
+                              GitHub
                             </Typography>{' '}
-                            commented your post.
+
                           </Typography>
                         }
-                        secondary="5 August"
+
                       />
                       <ListItemSecondaryAction>
                         <Typography variant="caption" noWrap>
-                          6:00 PM
+                          <CallMadeIcon onClick={() => window.open("https://github.com/wajeehhasan", "_blank")} sx={{ fontSize: "medium" }}></CallMadeIcon>
                         </Typography>
                       </ListItemSecondaryAction>
                     </ListItemButton>
                     <Divider />
-                    <ListItemButton>
+                    <ListItemButton onClick={() => window.open("https://facebook.com/wajeeh.hasan.58", "_blank")}>
                       <ListItemAvatar>
                         <Avatar
                           sx={{
-                            color: 'error.main',
-                            bgcolor: 'error.lighter'
+                            color: 'blue',
+                            bgcolor: 'white'
                           }}
                         >
-                          <SettingOutlined />
+                          <FacebookOutlined />
                         </Avatar>
                       </ListItemAvatar>
                       <ListItemText
                         primary={
                           <Typography variant="h6">
-                            Your Profile is Complete &nbsp;
+                            Facebook
                             <Typography component="span" variant="subtitle1">
-                              60%
+
                             </Typography>{' '}
                           </Typography>
                         }
-                        secondary="7 hours ago"
+
                       />
                       <ListItemSecondaryAction>
                         <Typography variant="caption" noWrap>
-                          2:45 PM
+                          <CallMadeIcon onClick={() => window.open("https://facebook.com/wajeeh.hasan.58", "_blank")} sx={{ fontSize: "medium" }}></CallMadeIcon>
                         </Typography>
                       </ListItemSecondaryAction>
                     </ListItemButton>
                     <Divider />
-                    <ListItemButton>
+                    <ListItemButton onClick={() => window.open("https://instagram.com/swajeehhasan/", "_blank")}>
                       <ListItemAvatar>
                         <Avatar
                           sx={{
-                            color: 'primary.main',
-                            bgcolor: 'primary.lighter'
+                            color: 'red',
+                            bgcolor: 'white'
                           }}
                         >
-                          C
+                          <InstagramOutlined />
                         </Avatar>
                       </ListItemAvatar>
                       <ListItemText
                         primary={
                           <Typography variant="h6">
                             <Typography component="span" variant="subtitle1">
-                              Cristina Danny
-                            </Typography>{' '}
-                            invited to join{' '}
+                              Instagram
+                            </Typography>
                             <Typography component="span" variant="subtitle1">
-                              Meeting.
+
                             </Typography>
                           </Typography>
                         }
-                        secondary="Daily scrum meeting time"
+
                       />
                       <ListItemSecondaryAction>
                         <Typography variant="caption" noWrap>
-                          9:10 PM
+                          <CallMadeIcon onClick={() => window.open("https://instagram.com/swajeehhasan/", "_blank")} sx={{ fontSize: "medium" }}></CallMadeIcon>
                         </Typography>
                       </ListItemSecondaryAction>
                     </ListItemButton>
@@ -260,7 +258,7 @@ const Notification = () => {
                       <ListItemText
                         primary={
                           <Typography variant="h6" color="primary">
-                            View All
+
                           </Typography>
                         }
                       />

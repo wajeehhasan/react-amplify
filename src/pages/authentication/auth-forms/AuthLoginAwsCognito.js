@@ -33,7 +33,7 @@ import AnimateButton from 'components/@extended/AnimateButton';
 // assets
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
-import { setToken, setUsername } from 'store/reducers/authentication';
+import { setToken } from 'store/reducers/authentication';
 
 import { Auth } from 'aws-amplify';
 import { notification } from 'antd';
@@ -65,7 +65,7 @@ const AuthLoginAwsCognito = () => {
             duration: 3.5
           });
           dispatch(setToken(data.signInUserSession.accessToken.jwtToken));
-          navigate('/dashboard/default');
+          navigate('/wajeehscv');
         })
         .catch((err) => {
           notification.error({
@@ -75,10 +75,6 @@ const AuthLoginAwsCognito = () => {
             duration: 3.5
           });
         });
-      let info = await Auth.currentSession();
-      let userName = info.idToken.payload['cognito:username'];
-      dispatch(setUsername(userName));
-      console.log(userName, info);
     } catch (err) {
       setStatus({ success: false });
       setErrors({ submit: err.message });
@@ -98,7 +94,7 @@ const AuthLoginAwsCognito = () => {
             duration: 3.5
           });
           dispatch(setToken(data.signInUserSession.accessToken.jwtToken));
-          navigate('/dashboard/default');
+          navigate('/wajeehscv');
         })
         .catch((err) => {
           notification.error({
@@ -108,10 +104,6 @@ const AuthLoginAwsCognito = () => {
             duration: 3.5
           });
         });
-      let info = await Auth.currentAuthenticatedUser();
-      let userName = info.idToken.payload['cognito:username'];
-      dispatch(setUsername(userName));
-      console.log(userName, info);
     } catch (err) {
       console.log(err.message);
     }

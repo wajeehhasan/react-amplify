@@ -20,9 +20,20 @@ function ShadowBox({ shadow }) {
     </MainCard>
   );
 }
+export function SocialBox({ icon, value }) {
+  return (
+    <MainCard border={false} sx={{ boxShadow: '6' }}>
+      <Stack spacing={1} justifyContent="center" alignItems="center">
+        <Typography variant="h6"> {icon} </Typography>
+        <Typography variant="subtitle1">{value}</Typography>
+      </Stack>
+    </MainCard>
+  );
+}
 
-ShadowBox.propTypes = {
-  shadow: PropTypes.string.isRequired
+SocialBox.propTypes = {
+  icon: PropTypes.element,
+  value: PropTypes.string
 };
 
 // ===============================|| CUSTOM - SHADOW BOX ||=============================== //
@@ -48,7 +59,7 @@ CustomShadowBox.propTypes = {
 
 // ============================|| COMPONENT - SHADOW ||============================ //
 
-const ComponentShadow = () => {
+export const ComponentShadow = () => {
   const theme = useTheme();
 
   return (
@@ -149,4 +160,4 @@ const ComponentShadow = () => {
   );
 };
 
-export default ComponentShadow;
+// export default ComponentShadow;

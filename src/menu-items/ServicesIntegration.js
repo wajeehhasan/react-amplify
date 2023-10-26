@@ -19,8 +19,8 @@ const ServicesIntegrated = {
       icon: icons.ClusterOutlined
     },
     {
-      id: 'abrservice',
-      title: 'ABR Service',
+      id: 'weatherservice',
+      title: 'Weather Service',
       type: 'item',
       url: '/weatherserviceintegration',
       icon: icons.ClusterOutlined

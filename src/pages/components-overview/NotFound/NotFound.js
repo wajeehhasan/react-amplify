@@ -26,7 +26,7 @@ const NotFound = () => {
 
                   <p>the page you are looking for not avaible!</p>
 
-                  <a href="/dashboard/default" className="link_404">
+                  <a href="/wajeehscv" className="link_404">
                     Home
                   </a>
                 </div>

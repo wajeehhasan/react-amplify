@@ -26,14 +26,14 @@ const AboutMe = {
       type: 'item',
       url: '/coverletter',
       icon: icons.BookOutlined
-    },
-    {
-      id: 'connectwithme',
-      title: 'Socials',
-      type: 'item',
-      url: '/connectwithme',
-      icon: icons.PhoneOutlined
     }
+    // {
+    //   id: 'connectwithme',
+    //   title: 'Socials',
+    //   type: 'item',
+    //   url: '/connectwithme',
+    //   icon: icons.PhoneOutlined
+    // }
   ]
 };
 
