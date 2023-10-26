@@ -1,0 +1,21 @@
+.heading-class {
+  font-family: system-ui;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 10px;
+}
+.content-class {
+  font-size: 14px;
+}
+.card-style-css {
+  margin-bottom: 10px;
+}
+
+.regards-css {
+  margin-top: 14px;
+  margin-left: 15px;
+  font-family: system-ui;
+  font-size: 14px;
+  font-weight: 600;
+  font-style: italic;
+}

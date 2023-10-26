@@ -10,25 +10,16 @@ const icons = {
 // ==============================|| MENU ITEMS - EXTRA PAGES ||============================== //
 
 const pages = {
-  id: 'authentication',
-  title: 'Authentication',
+  id: 'information',
+  title: 'Information',
   type: 'group',
   children: [
     {
-      id: 'login1',
-      title: 'Login',
+      id: 'aboutwebsite',
+      title: 'About Website',
       type: 'item',
-      url: '/login',
-      icon: icons.LoginOutlined,
-      target: true
-    },
-    {
-      id: 'register1',
-      title: 'Register',
-      type: 'item',
-      url: '/register',
-      icon: icons.ProfileOutlined,
-      target: true
+      url: '/websiteinformation',
+      icon: icons.ApartmentOutlined
     }
   ]
 };

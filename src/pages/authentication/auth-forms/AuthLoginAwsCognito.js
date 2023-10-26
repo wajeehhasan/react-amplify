@@ -41,7 +41,7 @@ import { notification } from 'antd';
 // ============================|| FIREBASE - LOGIN ||============================ //
 
 const AuthLoginAwsCognito = () => {
-  const [loginState, setLoginState] = useState("normal");
+  const [loginState, setLoginState] = useState('normal');
   const [showPassword, setShowPassword] = useState(false);
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ const AuthLoginAwsCognito = () => {
   //submit handle logic
   async function handleSubmit(values, { setErrors, setStatus, setSubmitting }) {
     try {
-      setLoginState("logging");
+      setLoginState('logging');
       await delay(2000);
       Auth.signIn(values.email, values.password)
         .then((data) => {
@@ -66,7 +66,6 @@ const AuthLoginAwsCognito = () => {
           });
           dispatch(setToken(data.signInUserSession.accessToken.jwtToken));
           navigate('/dashboard/default');
-
         })
         .catch((err) => {
           notification.error({
@@ -88,9 +87,9 @@ const AuthLoginAwsCognito = () => {
   }
   async function guestLogin() {
     try {
-      setLoginState("logging");
+      setLoginState('logging');
       await delay(2000);
-      Auth.signIn("tawoyo2857@weirby.com", "Abc123!klllll$$333")
+      Auth.signIn('tawoyo2857@weirby.com', 'Abc123!klllll$$333')
         .then((data) => {
           notification.success({
             message: 'Successful',
@@ -121,17 +120,15 @@ const AuthLoginAwsCognito = () => {
     event.preventDefault();
   };
 
-  if (loginState == "logging") {
+  if (loginState == 'logging') {
     return (
       <>
-        <Box sx={{ display: 'relative', textAlign: "center" }}>
+        <Box sx={{ display: 'relative', textAlign: 'center' }}>
           <CircularProgress />
         </Box>
       </>
-
     );
-  }
-  else if (loginState == "normal") {
+  } else if (loginState == 'normal') {
     return (
       <>
         <Formik
@@ -231,14 +228,30 @@ const AuthLoginAwsCognito = () => {
                 )}
                 <Grid item xs={12}>
                   <AnimateButton>
-                    <Button disableElevation disabled={isSubmitting} fullWidth size="large" type="submit" variant="contained" color="primary">
+                    <Button
+                      disableElevation
+                      disabled={isSubmitting}
+                      fullWidth
+                      size="large"
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                    >
                       Login
                     </Button>
                   </AnimateButton>
                 </Grid>
                 <Grid item xs={12}>
                   <AnimateButton>
-                    <Button disableElevation disabled={isSubmitting} onClick={guestLogin} fullWidth size="large" variant="contained" color="primary">
+                    <Button
+                      disableElevation
+                      disabled={isSubmitting}
+                      onClick={guestLogin}
+                      fullWidth
+                      size="large"
+                      variant="contained"
+                      color="primary"
+                    >
                       GuestLogin
                     </Button>
                   </AnimateButton>
@@ -259,7 +272,6 @@ const AuthLoginAwsCognito = () => {
       </>
     );
   }
-
 };
 
 export default AuthLoginAwsCognito;

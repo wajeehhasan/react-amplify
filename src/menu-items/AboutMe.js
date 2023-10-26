@@ -28,13 +28,6 @@ const AboutMe = {
       icon: icons.BookOutlined
     },
     {
-      id: 'webstietechstack',
-      title: 'Website Tech-stack',
-      type: 'item',
-      url: '/webtechstackused',
-      icon: icons.ApartmentOutlined
-    },
-    {
       id: 'connectwithme',
       title: 'Socials',
       type: 'item',

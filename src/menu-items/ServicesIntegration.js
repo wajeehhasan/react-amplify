@@ -22,7 +22,7 @@ const ServicesIntegrated = {
       id: 'abrservice',
       title: 'ABR Service',
       type: 'item',
-      url: '/australianbrintegration',
+      url: '/weatherserviceintegration',
       icon: icons.ClusterOutlined
     }
   ]

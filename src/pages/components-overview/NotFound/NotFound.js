@@ -1,6 +1,16 @@
 import React from 'react';
 import './NotFound.css';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { openDrawer } from 'store/reducers/menu';
+// import { useEffect } from 'react';
 const NotFound = () => {
+  // const dispatch = useDispatch();
+  // const menu = useSelector((state) => state.menu);
+  // useEffect(() => {
+  //   console.log(menu.drawerOpen);
+  //   dispatch(openDrawer({ drawerOpen: false }));
+  //   console.log(menu.drawerOpen);
+  // }, []);
   return (
     <>
       <section className="page_404">
@@ -17,7 +27,7 @@ const NotFound = () => {
                   <p>the page you are looking for not avaible!</p>
 
                   <a href="/dashboard/default" className="link_404">
-                    Go to Dashboard
+                    Home
                   </a>
                 </div>
               </div>

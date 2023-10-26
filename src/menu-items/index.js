@@ -1,5 +1,5 @@
 // // project import
-import pages from './pages';
+import Information from './Information';
 // import dashboard from './dashboard';
 // import utilities from './utilities';
 // import support from './support';
@@ -13,7 +13,7 @@ import ServicesIntegrated from './ServicesIntegration';
 //   items: [dashboard, pages, utilities, support]
 // };
 const menuItems = {
-  items: [AboutME, ServicesIntegrated, MyContent, pages]
+  items: [AboutME, ServicesIntegrated, MyContent, Information]
 };
 
 export default menuItems;
