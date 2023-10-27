@@ -17,8 +17,7 @@ const AboutWebsite = () => {
       {/* FRONTEND CARD */}
       <Box sx={{ display: { sm: 'flex' } }}>
         <div className="technology-name">Frontend Frameworks & Liberaries</div>
-        <div className="developed-button done">Developed</div>
-        <div className="developed-button done">Deployed</div>
+        <div className="developed-button done">Implemented</div>
       </Box>
       <Card className="card-style-css" sx={{ minWidth: 275, mb: 2 }}>
         <CardContent>
@@ -44,8 +43,7 @@ const AboutWebsite = () => {
       {/* BACKEND CARD */}
       <Box sx={{ display: { sm: 'flex' } }}>
         <div className="technology-name">Backend Architecture</div>
-        <div className="developed-button done">Developed</div>
-        <div className="developed-button remaining">Deployed</div>
+        <div className="developed-button remaining">In-Progress</div>
       </Box>
       <Card className="card-style-css" sx={{ minWidth: 275, mb: 2 }}>
         <CardContent>
@@ -95,7 +93,7 @@ const AboutWebsite = () => {
       {/* Serverless */}
       <Box sx={{ display: { sm: 'flex' } }}>
         <div className="technology-name">Serverless & Key Management</div>
-        <div className="developed-button remaining">Implemented</div>
+        <div className="developed-button remaining">In-Progress</div>
       </Box>
       <Card className="card-style-css" sx={{ minWidth: 275, mb: 2 }}>
         <CardContent>
