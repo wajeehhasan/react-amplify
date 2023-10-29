@@ -119,7 +119,7 @@ const CurriculumVitae = () => {
                   </Typography>
                   <Typography sx={{ mb: 1.5 }} color="text.secondary"></Typography>
                   <Typography className="content-class" variant="body2">
-                    SQL, MYSQL, MSSQL, SQLite, MongoDB, Redis, MSSQL Server Management Studio.
+                    SQL, MYSQL, MSSQL, SQLite, MongoDB, Redis, MSSQL Server Management Studio, EfCore.
                   </Typography>
                 </CardContent>
                 <CardActions>{/* <Button size="small">Download CV</Button> */}</CardActions>
@@ -133,7 +133,7 @@ const CurriculumVitae = () => {
                   </Typography>
                   <Typography sx={{ mb: 1.5 }} color="text.secondary"></Typography>
                   <Typography className="content-class" variant="body2">
-                    Amazon EC2, Amazon RDS, Amazon S3, Cognito, Amplify, CloudWatch, Lambda, APIGateway
+                    Amazon EC2, Load Balancers, Cognito, Amplify, CloudWatch, Lambda, APIGateway
                   </Typography>
                 </CardContent>
                 <CardActions>{/* <Button size="small">Download CV</Button> */}</CardActions>

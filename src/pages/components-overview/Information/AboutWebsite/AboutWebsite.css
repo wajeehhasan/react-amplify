@@ -1,0 +1,36 @@
+.technology-name {
+  text-align: -webkit-center;
+  font-family: system-ui;
+  margin-bottom: 10px;
+  width: max-content;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  border-radius: 9px;
+  color: white;
+  background: #1890ff;
+}
+.main-container-tech-name {
+  display: -webkit-box;
+}
+.developed-button {
+  text-align: -webkit-center;
+  font-family: system-ui;
+  margin-bottom: 10px;
+  width: max-content;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  border-radius: 9px;
+  color: white;
+  margin-left: 1rem;
+}
+
+.done {
+  background: #00752a;
+}
+.remaining {
+  background: #bc1c1c;
+}
