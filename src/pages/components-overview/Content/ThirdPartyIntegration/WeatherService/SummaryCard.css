@@ -199,6 +199,26 @@ widget {
 
 }
 
+@media (max-width: 420px) {
+
+
+  .main-card-weather-search {
+    background: #ffffff;
+    border-radius: 6px;
+    padding: 0px;
+    box-shadow: 3px 2px 18px 1px #30ccff;
+    width: 328px;
+
+    margin-left: -12px;
+
+    padding-left: 3px;
+    padding-top: 7px;
+    padding-bottom: 9px;
+  }
+
+}
+
+
 .search-again-button {
   border-radius: 35px;
   margin-top: 12px;
