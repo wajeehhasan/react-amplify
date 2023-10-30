@@ -3,7 +3,7 @@ import WebsiteCard from './WebsiteCard';
 
 const AboutWebsite = () => {
   const fronEndTechnologies = [{ name: 'ReactJs' }, { name: 'MaterialUI' }, { name: 'awsamplify/react-ui' }];
-  const backEndTechnologies = [{ name: '.NETCORE' }, { name: 'EC2 instance' }, { name: 'AWS CloudFormation stack' }, { name: 'DynamoDb' }];
+  const backEndTechnologies = [{ name: '.NETCORE' }, { name: 'EC2 instance' }, { name: 'CloudFormation' }, { name: 'Dynamodb' }];
   const serverLessTechnologies = [{ name: 'Lambda & ApiGateway' }, { name: 'AWS Secrets Manager' }];
   const userRegTechnologies = [{ name: 'Aws Cognito' }];
 
@@ -35,9 +35,9 @@ const AboutWebsite = () => {
 
       {/* Serverless */}
       <WebsiteCard
-        techstackHeading="Serverless & Key Management"
-        implementationStatus="In-Progress"
-        implCssClass="developed-button remaining"
+        techstackHeading="Serverless (WeatherService) & Key Management"
+        implementationStatus="ImplemeImplementednted"
+        implCssClass="developed-button done"
         techNameArr={serverLessTechnologies}
       ></WebsiteCard>
 
