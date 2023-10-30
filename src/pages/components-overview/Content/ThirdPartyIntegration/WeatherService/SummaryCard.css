@@ -89,7 +89,6 @@ widget {
   margin-top: 14rem;
 }
 
-
 .summary-card-main {
   width: 20rem;
   box-shadow: 10px 10px 5px lightblue;
@@ -108,7 +107,7 @@ widget {
 
 @media (max-width: 400px) {
   .summary-card-main {
-    width: 16rem;
+    width: 18rem;
     box-shadow: 10px 10px 5px lightblue;
     border-radius: 23px;
   }
@@ -119,7 +118,7 @@ widget {
     width: 17rem;
     box-shadow: 10px 10px 5px lightblue;
     border-radius: 23px;
-    margin-left: -12px;
+    margin-left: 3px;
   }
 }
 
@@ -133,8 +132,6 @@ widget {
   width: 20rem;
 }
 
-
-
 .main-card-weather-search {
   background: #ffffff;
   border-radius: 6px;
@@ -146,7 +143,6 @@ widget {
 }
 
 .weather-form-class {
-
   display: -webkit-inline-box;
 }
 
@@ -175,7 +171,6 @@ widget {
 
 @media (max-width: 620px) {
   .weather-form-class {
-
     display: table;
   }
 
@@ -196,12 +191,9 @@ widget {
   .city-field-container {
     margin-bottom: 1rem;
   }
-
 }
 
 @media (max-width: 420px) {
-
-
   .main-card-weather-search {
     background: #ffffff;
     border-radius: 6px;
@@ -215,9 +207,7 @@ widget {
     padding-top: 7px;
     padding-bottom: 9px;
   }
-
 }
-
 
 .search-again-button {
   border-radius: 35px;
