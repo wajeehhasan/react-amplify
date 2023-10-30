@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Poiret+One);
 @import url(https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.min.css);
+
 widget {
   position: relative;
   top: 50%;
@@ -9,10 +10,12 @@ widget {
   width: 600px;
   transform: translate(-50%, -50%);
   flex-wrap: wrap;
+
   cursor: pointer;
   border-radius: 20px;
   box-shadow: 0 27px 55px 0 rgba(0, 0, 0, 0.3), 0 17px 17px 0 rgba(0, 0, 0, 0.15);
 }
+
 .widget .weatherIcon {
   flex: 1 100%;
   height: 60%;
@@ -25,9 +28,11 @@ widget {
   justify-content: space-around;
   font-size: 100px;
 }
+
 .widget .weatherIcon i {
   padding-top: 30px;
 }
+
 .widget .weatherInfo {
   flex: 0 0 70%;
   height: 40%;
@@ -37,6 +42,7 @@ widget {
   align-items: center;
   color: white;
 }
+
 .widget .weatherInfo .temperature {
   flex: 0 0 40%;
   width: 100%;
@@ -44,6 +50,7 @@ widget {
   display: flex;
   justify-content: space-around;
 }
+
 .widget .weatherInfo .description {
   flex: 0 60%;
   display: flex;
@@ -52,14 +59,17 @@ widget {
   height: 100%;
   justify-content: center;
 }
+
 .widget .weatherInfo .description .weatherCondition {
   text-transform: uppercase;
   font-size: 35px;
   font-weight: 100;
 }
+
 .widget .weatherInfo .description .place {
   font-size: 15px;
 }
+
 .widget .date {
   flex: 0 0 30%;
   height: 40%;
@@ -77,4 +87,124 @@ widget {
   width: 90px !important;
   height: 90px !important;
   margin-top: 14rem;
+}
+
+
+.summary-card-main {
+  width: 20rem;
+  box-shadow: 10px 10px 5px lightblue;
+  border-radius: 23px;
+  margin-left: 30%;
+}
+
+@media (max-width: 600px) {
+  .summary-card-main {
+    width: 20rem;
+    box-shadow: 10px 10px 5px lightblue;
+    border-radius: 23px;
+    margin-left: 10%;
+  }
+}
+
+@media (max-width: 400px) {
+  .summary-card-main {
+    width: 16rem;
+    box-shadow: 10px 10px 5px lightblue;
+    border-radius: 23px;
+  }
+}
+
+@media (max-width: 280px) {
+  .summary-card-main {
+    width: 17rem;
+    box-shadow: 10px 10px 5px lightblue;
+    border-radius: 23px;
+    margin-left: -12px;
+  }
+}
+
+/* .weather-input-button {} */
+
+.input-button-container {
+  margin-left: 1rem;
+}
+
+.city-text-field {
+  width: 20rem;
+}
+
+
+
+.main-card-weather-search {
+  background: #ffffff;
+  border-radius: 6px;
+  padding: 2rem;
+  box-shadow: 3px 2px 18px 1px #30ccff;
+  width: 36rem;
+  margin-left: 30%;
+  margin-top: 7rem;
+}
+
+.weather-form-class {
+
+  display: -webkit-inline-box;
+}
+
+@media (max-width: 900px) {
+  .main-card-weather-search {
+    background: #ffffff;
+    border-radius: 6px;
+    padding: 2rem;
+    box-shadow: 3px 2px 18px 1px #30ccff;
+    width: 36rem;
+    margin-left: 10%;
+    margin-top: 7rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .main-card-weather-search {
+    background: #ffffff;
+    border-radius: 6px;
+    padding: 1rem;
+    box-shadow: 3px 2px 18px 1px #30ccff;
+    width: 33rem;
+    margin-top: 7rem;
+  }
+}
+
+@media (max-width: 620px) {
+  .weather-form-class {
+
+    display: table;
+  }
+
+  .main-card-weather-search {
+    background: #ffffff;
+    border-radius: 6px;
+    padding: 1rem;
+    box-shadow: 3px 2px 18px 1px #30ccff;
+    width: 22rem;
+    margin-top: 9rem;
+  }
+
+  .input-button-container {
+    margin-left: 0rem;
+    width: 20rem;
+  }
+
+  .city-field-container {
+    margin-bottom: 1rem;
+  }
+
+}
+
+.search-again-button {
+  border-radius: 35px;
+  margin-top: 12px;
+  margin-bottom: -6rem;
+}
+
+.article-margin-fix {
+  margin-bottom: -22px !important;
 }

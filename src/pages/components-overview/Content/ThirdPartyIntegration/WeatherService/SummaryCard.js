@@ -39,7 +39,7 @@ const SummaryCard = ({ skiesDetails, countryAndCity, lastUpdated, temperature })
 
   return (
     <>
-      <article className="widget">
+      <article className="widget article-margin-fix">
         <div className="weatherIcon">
           <i className={cssClassName}></i>
         </div>

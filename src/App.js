@@ -10,7 +10,6 @@ import { useAuthenticator } from '@aws-amplify/ui-react';
 
 const App = () => {
   const { authStatus } = useAuthenticator(context => [context.authStatus]);
-  console.log(authStatus);
   return (authStatus === 'authenticated' || authStatus === 'configuring') ? (<ThemeCustomization>
     <ScrollTop>
       <Routes />
