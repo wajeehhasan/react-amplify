@@ -3,6 +3,7 @@ import '../../../Information/AboutWebsite/AboutWebsite.css';
 import './SummaryCard.css';
 import { Auth } from 'aws-amplify';
 import SummaryCard from './SummaryCard';
+
 import {
   CircularProgress,
   Box,
@@ -22,27 +23,15 @@ const WeatherService = () => {
 
 
   const handleTextFieldChange = (event) => {
+    event.preventDefault();
     if (isLetters(event.target.value)) {
       setCityValue(event.target.value);
     }
 
   }
 
-
-
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  // useEffect(() => {
-  //   getWeatherData()
-  //     .then((result) => {
-  //       console.log(result);
-  //       // setViewType('loaded');
-  //       setViewType('input');
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
 
   const fetchUserToken = async () => {
     const info = await Auth.currentAuthenticatedUser();
@@ -56,7 +45,8 @@ const WeatherService = () => {
     setViewType("input");
 
   }
-  async function getWeatherData() {
+  async function getWeatherData(event) {
+    event.preventDefault();
     setViewType("loading");
     const apiUrl = 'https://gsmdlwjtsb.execute-api.ap-southeast-2.amazonaws.com/default/WeatherLambda/?cityname=' + cityValue;
 

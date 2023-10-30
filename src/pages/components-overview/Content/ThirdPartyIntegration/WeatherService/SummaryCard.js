@@ -1,40 +1,23 @@
 import './SummaryCard.css';
 import PropTypes from 'prop-types';
+import { weatherIconDetails } from './weatherTest';
 const SummaryCard = ({ skiesDetails, countryAndCity, lastUpdated, temperature }) => {
   let cssClassName = '';
-  const sky_details_icons_name = [
-    'sunny',
-    'cloudy',
-    'cloudy-gusts',
-    'cloudy-windy',
-    'fog',
-    'hail',
-    'haze',
-    'lightning',
-    'rain',
-    'rain-mix',
-    'rain-wind',
-    'showers',
-    'sleet',
-    'sleet-storm',
-    'snow',
-    'snow-thunderstorm',
-    'snow-wind',
-    'sprinkle',
-    'storm-showers',
-    'sunny-overcast',
-    'thunderstorm',
-    'windy',
-    'solar',
-    'eclipse',
-    'hot',
-    'cloudy-high',
-    'light-wind'
-  ];
-  if (sky_details_icons_name.indexOf(skiesDetails)) {
-    cssClassName = 'wi wi-day-cloudy';
-  } else {
-    cssClassName = 'wi wi-day-' + skiesDetails;
+  const daytimeIcons = weatherIconDetails[0]['Daytime'];
+  const neutralIcons = weatherIconDetails[0]['Neutral'];
+  const nightTimeIcons = weatherIconDetails[0]['Nighttime'];
+  skiesDetails = skiesDetails.toLowerCase();
+  if (!daytimeIcons.indexOf(skiesDetails)) {
+    cssClassName = "wi wi-day-" + skiesDetails;
+  }
+  else if (!neutralIcons.indexOf(skiesDetails)) {
+    cssClassName = "wi wi-" + skiesDetails;
+  }
+  else if (!nightTimeIcons.indexOf(skiesDetails)) {
+    cssClassName = "wi wi-night-" + skiesDetails;
+  }
+  else {
+    cssClassName = "wi wi-day-cloudy";
   }
 
   return (
