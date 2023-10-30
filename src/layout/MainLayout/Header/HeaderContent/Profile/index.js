@@ -73,22 +73,21 @@ const Profile = () => {
   // const user = useSelector((state) => state.userauth);
   const navigate = useNavigate();
 
-
   /////username/////////////////////////////////////
   const [username, setUsername] = useState(null);
   useEffect(() => {
     // Call your async method here
     fetchUsername()
-      .then(result => {
+      .then((result) => {
         setUsername(result);
       })
-      .catch(error => {
-        console.error("Error fetching username: ", error);
+      .catch((error) => {
+        console.error('Error fetching username: ', error);
       });
   }, []);
   const fetchUsername = async () => {
     const info = await Auth.currentAuthenticatedUser();
-    const result = await info.username;
+    const result = info.username;
     return result;
   };
   /////username/////////////////////////////////////
@@ -157,7 +156,7 @@ const Profile = () => {
         <DialogContent>
           <DialogContentText sx={{ fontFamily: ['monospace'] }}>Please Wait..</DialogContentText>
         </DialogContent>
-        <Box sx={{ display: 'relative', textAlign: "center", width: '324px' }}>
+        <Box sx={{ display: 'relative', textAlign: 'center', width: '324px' }}>
           <CircularProgress />
         </Box>
         <DialogActions>
@@ -286,7 +285,6 @@ const Profile = () => {
       </Box>
     </>
   );
-
 };
 
 export default Profile;
