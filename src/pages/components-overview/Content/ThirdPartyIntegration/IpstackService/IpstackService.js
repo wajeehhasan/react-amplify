@@ -15,7 +15,7 @@ import AnimateButton from 'components/@extended/AnimateButton';
 import { notification } from 'antd';
 
 const IpstackService = () => {
-  const [viewState, setViewType] = useState('input');
+  const [viewState, setViewType] = useState('error');
   const [ipValue, setIpValue] = useState("");
   const [ipdata, setIpData] = useState([]);
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -92,7 +92,16 @@ const IpstackService = () => {
       </div>
     );
   }
+  else if (viewState == "error") {
+    return (
+      <>
+        Currently Facing Issues with SSL certificate as .net api is hosted on beanstalk which serves requests over http <br></br>
+        and react is hosted on amplify with registered domain accessing it with https.
+        <br />It can be fixed by buying a domaing name and registering it, but I am looking for a free solution :D
 
+      </>
+    );
+  }
   else if (viewState == "input") {
     return (
       <>
@@ -147,6 +156,7 @@ const IpstackService = () => {
               Search Again
             </Button>
           </AnimateButton>
+
         </div>
       </>
     );
