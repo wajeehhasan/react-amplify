@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import '../../../Information/AboutWebsite/AboutWebsite.css';
 import '../WeatherService/SummaryCard.css';
 
-
 import {
   CircularProgress,
   Box,
   TextField,
-
   Button
   // Typography
 } from '@mui/material';
@@ -16,7 +14,7 @@ import { notification } from 'antd';
 
 const IpstackService = () => {
   const [viewState, setViewType] = useState('error');
-  const [ipValue, setIpValue] = useState("");
+  const [ipValue, setIpValue] = useState('');
   const [ipdata, setIpData] = useState([]);
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   // http://portfolioaws-env.eba-yzkm33pb.ap-southeast-2.elasticbeanstalk.com/api/Location?ip_address=11.22.33.55
@@ -24,18 +22,17 @@ const IpstackService = () => {
   const handleTextFieldChange = (event) => {
     event.preventDefault();
     setIpValue(event.target.value);
-  }
+  };
   async function searchAgain() {
-    setViewType("loading");
+    setViewType('loading');
     await delay(2000);
-    setCityValue("");
-    setViewType("input");
-
+    setCityValue('');
+    setViewType('input');
   }
 
   async function getIpData(event) {
     event.preventDefault();
-    setViewType("loading");
+    setViewType('loading');
     const apiUrl = 'http://portfolioaws-env.eba-yzkm33pb.ap-southeast-2.elasticbeanstalk.com/api/Location?ip_address=' + ipValue;
 
     const headers = {
@@ -55,24 +52,21 @@ const IpstackService = () => {
             placement: 'bottomRight',
             duration: 4.5
           });
-          setCityValue("");
-          setViewType("input");
-        }
-        else {
+          setCityValue('');
+          setViewType('input');
+        } else {
           return response.json();
         }
-
       })
       .then((data) => {
         if (data) {
           setIpData({ data: data });
-          console.log("ipdata: " + ipdata);
+          console.log('ipdata: ' + ipdata);
           console.log(data);
-          setIpValue("");
-          setViewType("input");
-        }
-        else {
-          setViewType("input");
+          setIpValue('');
+          setViewType('input');
+        } else {
+          setViewType('input');
         }
         // Handle the response data here
         return data;
@@ -82,7 +76,6 @@ const IpstackService = () => {
       });
   }
 
-
   if (viewState == 'loading') {
     return (
       <div>
@@ -91,61 +84,41 @@ const IpstackService = () => {
         </Box>
       </div>
     );
-  }
-  else if (viewState == "error") {
+  } else if (viewState == 'error') {
     return (
       <>
-        Currently Facing Issues with SSL certificate as .net api is hosted on beanstalk which serves requests over http <br></br>
+        Currently Facing Issues with SSL certificate as .net api is hosted via beanstalk which serves requests over http <br></br>
         and react is hosted on amplify with registered domain accessing it with https.
-        <br />It can be fixed by buying a domaing name and registering it, but I am looking for a free solution :D
-
+        <br /> Currently incontact with aws business unit to allocate me the domain address.
       </>
     );
-  }
-  else if (viewState == "input") {
+  } else if (viewState == 'input') {
     return (
       <>
-        <div className='main-card-weather-search'>
-          <form
-            onSubmit={getIpData}
-            className='weather-form-class'
-          >
-            <Box className='city-field-container'
-
-            >
-              <TextField className='city-text-field' value={ipValue} onChange={handleTextFieldChange} />
+        <div className="main-card-weather-search">
+          <form onSubmit={getIpData} className="weather-form-class">
+            <Box className="city-field-container">
+              <TextField className="city-text-field" value={ipValue} onChange={handleTextFieldChange} />
             </Box>
-            <Box className='input-button-container'
-            >
-              <AnimateButton >
-                <Button
-                  disableElevation
-                  fullWidth
-                  size="large"
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                >
+            <Box className="input-button-container">
+              <AnimateButton>
+                <Button disableElevation fullWidth size="large" type="submit" variant="contained" color="primary">
                   Check IP Location
                 </Button>
               </AnimateButton>
             </Box>
-
           </form>
-
         </div>
-
       </>
     );
-  }
-  else if (viewState == 'loaded') {
+  } else if (viewState == 'loaded') {
     return (
       <>
-        <div className='summary-card-main'>
+        <div className="summary-card-main">
           {/* {ipdata.resultSet.city} */}
-          <AnimateButton >
+          <AnimateButton>
             <Button
-              className='search-again-button'
+              className="search-again-button"
               disableElevation
               fullWidth
               size="large"
@@ -156,7 +129,6 @@ const IpstackService = () => {
               Search Again
             </Button>
           </AnimateButton>
-
         </div>
       </>
     );
