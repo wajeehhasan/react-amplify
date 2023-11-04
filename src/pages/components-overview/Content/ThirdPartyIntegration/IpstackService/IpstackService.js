@@ -34,7 +34,7 @@ const IpstackService = () => {
       message: 'Unsuccessful',
       description: 'This service is currently down',
       placement: 'bottomRight',
-      duration: 4.5
+      duration: 10.5
     });
   }, [])
 
@@ -95,9 +95,7 @@ const IpstackService = () => {
   } else if (viewState == 'error') {
     return (
       <>
-        Currently Facing Issues with SSL certificate as .net api is hosted on beanstalk which serves requests over http <br></br>
-        and react is hosted on amplify with registered domain accessing it with https.
-        <br />It can be fixed by buying a domaing name and registering it, but I am looking for a free solution :D
+
 
       </>
     );
