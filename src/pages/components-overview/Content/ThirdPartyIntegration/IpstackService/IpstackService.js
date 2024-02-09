@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import '../../../Information/AboutWebsite/AboutWebsite.css';
 import '../WeatherService/SummaryCard.css';
 
@@ -15,7 +15,7 @@ import { notification } from 'antd';
 const IpstackService = () => {
   const [viewState, setViewType] = useState('input');
   const [ipValue, setIpValue] = useState('');
-  const [ipdata, setIpData] = useState([]);
+  const [ipdata, setIpData] = useState({});
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
   // https://portfolioloadbalancer-856531663.ap-southeast-2.elb.amazonaws.com/api/Location?ip_address=11.22.33.55
 
@@ -26,17 +26,17 @@ const IpstackService = () => {
   async function searchAgain() {
     setViewType('loading');
     await delay(2000);
-    setCityValue('');
+    setIpValue('');
     setViewType('input');
   }
-  useEffect(() => {
-    notification.error({
-      message: 'Unsuccessful',
-      description: 'This service is currently down',
-      placement: 'bottomRight',
-      duration: 10.5
-    });
-  }, []);
+  // useEffect(() => {
+  //   notification.error({
+  //     message: 'Unsuccessful',
+  //     description: 'This service is currently down',
+  //     placement: 'bottomRight',
+  //     duration: 10.5
+  //   });
+  // }, []);
 
   async function getIpData(event) {
     event.preventDefault();
@@ -56,31 +56,43 @@ const IpstackService = () => {
           console.log(response);
           notification.error({
             message: 'Unsuccessful',
-            description: 'Unable to Fecth IP ' + ipValue + ' Deetails ',
+            description: 'Unable to Fecth IP ' + ipValue + ' Details ',
             placement: 'bottomRight',
             duration: 4.5
           });
-          setCityValue('');
+
           setViewType('input');
         } else {
           return response.json();
         }
       })
       .then((data) => {
-        if (data) {
-          setIpData({ data: data });
-          console.log('ipdata: ' + ipdata);
-          console.log(data);
+        if (data.resultSet.city != null) {
+          setIpData(data);
           setIpValue('');
-          setViewType('input');
+          setViewType('loaded');
         } else {
+          notification.error({
+            message: 'Unsuccessful',
+            description: 'Unable to find Ip details for the given IP address i.e. : ' + ipValue,
+            placement: 'bottomRight',
+            duration: 4.5
+          });
+          setIpValue('');
           setViewType('input');
         }
         // Handle the response data here
         return data;
       })
       .catch((error) => {
-        console.log('There was a problem with the fetch operation:', error.message);
+        notification.error({
+          message: 'Unsuccessful',
+          description: 'There was a problem with the fetch operation: ' + error.message,
+          placement: 'bottomRight',
+          duration: 4.5
+        });
+        setIpValue('');
+        setViewType('input');
       });
   }
 
@@ -117,7 +129,7 @@ const IpstackService = () => {
     return (
       <>
         <div className="summary-card-main">
-          {/* {ipdata.resultSet.city} */}
+          {ipdata.resultSet.city}
           <AnimateButton>
             <Button
               className="search-again-button"
