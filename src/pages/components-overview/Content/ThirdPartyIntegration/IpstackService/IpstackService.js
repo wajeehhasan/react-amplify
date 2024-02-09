@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../../Information/AboutWebsite/AboutWebsite.css';
 import '../WeatherService/SummaryCard.css';
 
@@ -29,6 +29,14 @@ const IpstackService = () => {
     setCityValue('');
     setViewType('input');
   }
+  useEffect(() => {
+    notification.error({
+      message: 'Unsuccessful',
+      description: 'This service is currently down',
+      placement: 'bottomRight',
+      duration: 10.5
+    });
+  }, []);
 
   async function getIpData(event) {
     event.preventDefault();
@@ -85,13 +93,7 @@ const IpstackService = () => {
       </div>
     );
   } else if (viewState == 'error') {
-    return (
-      <>
-        Currently Facing Issues with SSL certificate as .net api is hosted via beanstalk which serves requests over http <br></br>
-        and react is hosted on amplify with registered domain accessing it with https.
-        <br />
-      </>
-    );
+    return <></>;
   } else if (viewState == 'input') {
     return (
       <>
