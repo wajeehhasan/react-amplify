@@ -17,7 +17,7 @@ const IpstackService = () => {
   const [ipValue, setIpValue] = useState('');
   const [ipdata, setIpData] = useState([]);
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-  // http://portfolioaws-env.eba-yzkm33pb.ap-southeast-2.elasticbeanstalk.com/api/Location?ip_address=11.22.33.55
+  // https://portfolioloadbalancer-856531663.ap-southeast-2.elb.amazonaws.com/api/Location?ip_address=11.22.33.55
 
   const handleTextFieldChange = (event) => {
     event.preventDefault();
@@ -33,7 +33,7 @@ const IpstackService = () => {
   async function getIpData(event) {
     event.preventDefault();
     setViewType('loading');
-    const apiUrl = 'http://portfolioaws-env.eba-yzkm33pb.ap-southeast-2.elasticbeanstalk.com/api/Location?ip_address=' + ipValue;
+    const apiUrl = 'https://portfolioloadbalancer-856531663.ap-southeast-2.elb.amazonaws.com/api/Location?ip_address=' + ipValue;
 
     const headers = {
       'Content-Type': 'application/json'
@@ -89,7 +89,7 @@ const IpstackService = () => {
       <>
         Currently Facing Issues with SSL certificate as .net api is hosted via beanstalk which serves requests over http <br></br>
         and react is hosted on amplify with registered domain accessing it with https.
-        <br /> Currently incontact with aws business unit to allocate me the domain address.
+        <br />
       </>
     );
   } else if (viewState == 'input') {
