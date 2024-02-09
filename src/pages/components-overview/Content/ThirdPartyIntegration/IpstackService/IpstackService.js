@@ -13,7 +13,7 @@ import AnimateButton from 'components/@extended/AnimateButton';
 import { notification } from 'antd';
 
 const IpstackService = () => {
-  const [viewState, setViewType] = useState('error');
+  const [viewState, setViewType] = useState('input');
   const [ipValue, setIpValue] = useState('');
   const [ipdata, setIpData] = useState([]);
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -93,7 +93,7 @@ const IpstackService = () => {
       </div>
     );
   } else if (viewState == 'error') {
-    return <></>;
+    return <>Error!!</>;
   } else if (viewState == 'input') {
     return (
       <>
